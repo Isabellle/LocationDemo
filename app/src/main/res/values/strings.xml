@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">LocationServiceDemo</string>
-    <string name="start_service">Démarrer l\'IntentService</string>
-    <string name="stop_service">Arrêter l\'Intent Service</string>
     <string name="latitude_label">Latitude</string>
     <string name="longitude_label">Longitude</string>
     <string name="persmission_location_denied">Sans votre positioon, nous ne pouvons pas afficher les objets près de chez vous, vous verrez l\'ensemble des objets</string>
-    <string name="permission_location_rationale">Yatoo a besoin de votre position pour afficher les objets tout près de chez vous</string>
+    <string name="permission_location_rationale">L\'application a besoin de votre position pour afficher les objets tout près de chez vous</string>
+    <string name="common_ok_label">OK</string>
+    <string name="common_cancel_label">Annuler</string>
+    <string name="location_provider_enabled">Provider Enabled</string>
+    <string name="location_provider_disabled">Provider Disabled</string>
 </resources>

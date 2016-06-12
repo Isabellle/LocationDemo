@@ -9,14 +9,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringDef;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     /*For Log*/
     private static final String LOG_TAG = "com.location";
+
+    /*Request code to check on in onRequestPermissionsResult*/
     private final int REQUEST_LOCATION_PERMISSION_CODE = 0;
 
     private TextView latitudeTextView, longitudeTextView;
@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private double latitude;
     private double longitude;
     private Boolean getCanLocation = false;
+    Boolean isGpsEnabled = false;
+    Boolean isNetworkEnabled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +85,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onProviderEnabled(String provider) {
+        Toast.makeText(this, getString(R.string.location_provider_enabled)+" :"+provider, Toast.LENGTH_SHORT).show();
+        retrieveLocation();
     }
 
     @Override
     public void onProviderDisabled(String provider) {
+        Toast.makeText(this, getString(R.string.location_provider_disabled)+" :"+provider, Toast.LENGTH_SHORT).show();
     }
 
     public void retrieveLocation() {
@@ -114,8 +119,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             return;
         }
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Boolean isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        Boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         //If both gps and network are enabled, we try to retrieve the last known location
         if (isNetworkEnabled && isNetworkEnabled) {
@@ -152,8 +157,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(MainActivity.this)
                 .setMessage(message)
-                .setPositiveButton("Ok", okListener)
-                .setNegativeButton("Tant pis", null)
+                .setPositiveButton(getString(R.string.common_ok_label), okListener)
+                .setNegativeButton(getString(R.string.common_cancel_label), null)
                 .create()
                 .show();
     }
