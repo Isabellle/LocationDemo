@@ -7,7 +7,8 @@ public class Constants {
 
 
     /*Location settings*/
-    public static final int LOCATION_MIN_TIME_BETWEEN_UPDATES = 6000000;
-    public static final int LOCATION_MIN_DISTANCE = 500;
+    /*Set to 0, means that location will always be updated in the textfields*/
+    public static final int LOCATION_MIN_TIME_BETWEEN_UPDATES = 0;
+    public static final int LOCATION_MIN_DISTANCE = 0;
 
 }
